@@ -54,7 +54,7 @@ const Education = () => {
   return (
     <Container id="Education">
       <Wrapper>
-        <Title>Education</Title>
+        <Title>Éducations</Title>
         <Desc
           style={{
             marginBottom: "40px",

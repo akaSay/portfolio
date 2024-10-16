@@ -54,7 +54,7 @@ const Experience = () => {
   return (
     <Container id="Experience">
       <Wrapper>
-        <Title>Experience</Title>
+        <Title>Expériences</Title>
         <Desc
           style={{
             marginBottom: "40px",
