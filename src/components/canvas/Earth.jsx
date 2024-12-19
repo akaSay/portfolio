@@ -4,8 +4,16 @@ import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
 
 const Earth = () => {
   const earth = useGLTF(`${process.env.PUBLIC_URL}/planet/scene.gltf`);
+
+  if (!earth.scene) return null;
+
   return (
-    <primitive object={earth.scene} scale={3} position-y={0} rotation-y={0} />
+    <primitive
+      object={earth.scene}
+      scale={3}
+      position={[0, 0, 0]}
+      rotation={[0, 0, 0]}
+    />
   );
 };
 
@@ -36,5 +44,7 @@ const EarthCanvas = () => {
     </Canvas>
   );
 };
+
+useGLTF.preload(`${process.env.PUBLIC_URL}/planet/scene.gltf`);
 
 export default EarthCanvas;

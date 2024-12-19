@@ -1,7 +1,6 @@
-import React, { useRef, useState, Suspense } from "react";
+import { PointMaterial, Points, Preload } from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Points, PointMaterial, Preload } from "@react-three/drei";
-import * as random from "maath/random/dist/maath-random.esm";
+import React, { Suspense, useRef, useState } from "react";
 import styled from "styled-components";
 
 const StyledCanvasWrapper = styled.div`
@@ -13,13 +12,26 @@ const StyledCanvasWrapper = styled.div`
 
 const Stars = (props) => {
   const ref = useRef();
-  const [sphere] = useState(() =>
-    random.inSphere(new Float32Array(5000), { radius: 1.2 })
-  );
+  const [sphere] = useState(() => {
+    // Création d'un tableau de positions avec des valeurs valides
+    const positions = new Float32Array(5000 * 3); // 5000 points * 3 coordonnées (x,y,z)
+    for (let i = 0; i < positions.length; i += 3) {
+      const radius = 1.2;
+      const theta = 2 * Math.PI * Math.random();
+      const phi = Math.acos(2 * Math.random() - 1);
+
+      positions[i] = radius * Math.sin(phi) * Math.cos(theta);
+      positions[i + 1] = radius * Math.sin(phi) * Math.sin(theta);
+      positions[i + 2] = radius * Math.cos(phi);
+    }
+    return positions;
+  });
 
   useFrame((state, delta) => {
-    ref.current.rotation.x -= delta / 10;
-    ref.current.rotation.y -= delta / 15;
+    if (ref.current) {
+      ref.current.rotation.x -= delta / 10;
+      ref.current.rotation.y -= delta / 15;
+    }
   });
 
   return (
@@ -40,7 +52,7 @@ const Stars = (props) => {
 const StyledStarsCanvas = () => {
   return (
     <StyledCanvasWrapper>
-      <Canvas camera={{ position: [0, 0, 1] }}>
+      <Canvas camera={{ position: [0, 0, 1] }} gl={{ antialias: true }}>
         <Suspense fallback={null}>
           <Stars />
         </Suspense>

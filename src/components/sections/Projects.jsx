@@ -104,25 +104,25 @@ const Projects = ({ openModal, setOpenModal }) => {
             marginBottom: "40px",
           }}
         >
-            Les projets arrivent...
+          Voici les projets que j'ai réalisés
         </Desc>
         <ToggleButtonGroup>
           <ToggleButton
-            active={toggle === "all"}
+            $active={toggle === "all"}
             onClick={() => setToggle("all")}
           >
             ALL
           </ToggleButton>
           <Divider />
           <ToggleButton
-            active={toggle === "web app"}
+            $active={toggle === "web app"}
             onClick={() => setToggle("web app")}
           >
             WEB APP'S
           </ToggleButton>
           <Divider />
           <ToggleButton
-            active={toggle === "android app"}
+            $active={toggle === "android app"}
             onClick={() => setToggle("android app")}
           >
             ANDROID APP'S
@@ -132,6 +132,7 @@ const Projects = ({ openModal, setOpenModal }) => {
           {toggle === "all" &&
             projects.map((project) => (
               <ProjectCard
+                key={project.id}
                 project={project}
                 openModal={openModal}
                 setOpenModal={setOpenModal}
@@ -141,6 +142,7 @@ const Projects = ({ openModal, setOpenModal }) => {
             .filter((item) => item.category === toggle)
             .map((project) => (
               <ProjectCard
+                key={project.id}
                 project={project}
                 openModal={openModal}
                 setOpenModal={setOpenModal}
